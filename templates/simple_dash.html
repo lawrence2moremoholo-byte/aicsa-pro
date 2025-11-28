@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AICSA Pro - Simple Dashboard</title>
+    <style>
+        body { 
+            font-family: Arial; 
+            background: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+        }
+        .screen {
+            display: none;
+        }
+        #loginScreen {
+            display: flex;
+            height: 100vh;
+            align-items: center;
+            justify-content: center;
+        }
+        .login-box {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px gray;
+            text-align: center;
+        }
+        input {
+            padding: 10px;
+            margin: 10px;
+            width: 200px;
+        }
+        button {
+            padding: 10px 20px;
+            background: blue;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .card {
+            background: white;
+            padding: 20px;
+            margin: 10px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Screen -->
+    <div id="loginScreen" class="screen">
+        <div class="login-box">
+            <h2>AICSA Pro</h2>
+            <p>Enter your API key:</p>
+            <input type="password" id="apiKey" placeholder="API Key">
+            <br>
+            <button onclick="login()">Enter Dashboard</button>
+        </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div id="dashboard" class="screen">
+        <h1>AICSA Pro Dashboard</h1>
+        <button onclick="logout()" style="background: red;">Logout</button>
+        
+        <div class="card">
+            <h2>AI Performance Score: <span id="score">87%</span></h2>
+        </div>
+
+        <div class="card">
+            <button onclick="generateProposal()" style="background: green;">Generate New Proposal</button>
+            <button onclick="runIntervention()" style="background: purple;">Run Intervention</button>
+        </div>
+
+            <div class="card">
+                <h3>Recent Experiments</h3>
+                <div id="experimentsList">
+                    <div style="background: lightblue; padding: 10px; margin: 5px;">
+                        Improve Response Templates - Status: Completed
+                    </div>
+                </div>
+            </div>
+                    <div class="card">
+                <h3>Recent Experiments</h3>
+                <div id="experimentsList">
+                    <div style="background: lightblue; padding: 10px; margin: 5px;">
+                        Improve Response Templates - Status: Completed
+                    </div>
+                </div>
+            </div>
+
+            <!-- ADD THIS NEW PRICING SECTION -->
+            <div class="card">
+            <h3>💳 Upgrade Your Plan</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;">
+                <div style="border: 2px solid #3b82f6; padding: 15px; border-radius: 10px;">
+                    <h4>Basic</h4>
+                    <div style="font-size: 24px; font-weight: bold;">R149</div>
+                    <ul style="text-align: left; font-size: 12px;">
+                        <li>1000 AI analyses/month</li>
+                        <li>Basic dashboard</li>
+                        <li>Email support</li>
+                    </ul>
+                    <button onclick="subscribe('basic')" style="background: #3b82f6;">Subscribe</button>
+                </div>
+                <div style="border: 2px solid #10b981; padding: 15px; border-radius: 10px;">
+                    <h4>Advanced</h4>
+                    <div style="font-size: 24px; font-weight: bold;">R499</div>
+                    <ul style="text-align: left; font-size: 12px;">
+                        <li>5000 AI analyses/month</li>
+                        <li>Advanced dashboard</li>
+                        <li>Priority support</li>
+                        <li>API access</li>
+                    </ul>
+                    <button onclick="subscribe('advanced')" style="background: #10b981;">Subscribe</button>
+                    </div>
+                    <div style="border: 2px solid #8b5cf6; padding: 15px; border-radius: 10px;">
+                        <h4>Enterprise</h4>
+                        <div style="font-size: 24px; font-weight: bold;">R999</div>
+                        <ul style="text-align: left; font-size: 12px;">
+                            <li>Unlimited analyses</li>
+                            <li>Full dashboard</li>
+                            <li>24/7 support</li>
+                            <li>Custom integrations</li>
+                        </ul>
+                        <button onclick="subscribe('enterprise')" style="background: #8b5cf6;">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Show login screen on load
+        document.getElementById('loginScreen').style.display = 'flex';
+        document.getElementById('dashboard').style.display = 'none';
+
+        function login() {
+            var apiKey = document.getElementById('apiKey').value;
+            if (apiKey) {
+                localStorage.setItem('apiKey', apiKey);
+                document.getElementById('loginScreen').style.display = 'none';
+                document.getElementById('dashboard').style.display = 'block';
+            } else {
+                alert('Please enter API key');
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('apiKey');
+            document.getElementById('loginScreen').style.display = 'flex';
+            document.getElementById('dashboard').style.display = 'none';
+        }
+
+        function generateProposal() {
+            alert('Generating AI proposal...');
+            var list = document.getElementById('experimentsList');
+            var newItem = document.createElement('div');
+            newItem.style.cssText = 'background: lightgreen; padding: 10px; margin: 5px;';
+            newItem.innerHTML = 'New AI Proposal - Status: Ready';
+            list.prepend(newItem);
+            
+            // Update score
+            var score = document.getElementById('score');
+            score.textContent = (parseInt(score.textContent) + 1) + '%';
+        }
+
+        function runIntervention() {
+            alert('Running AI intervention...');
+            var list = document.getElementById('experimentsList');
+            var newItem = document.createElement('div');
+            newItem.style.cssText = 'background: lavender; padding: 10px; margin: 5px;';
+            newItem.innerHTML = 'AI Intervention - Status: Completed';
+            list.prepend(newItem);
+            
+            // Update score
+            var score = document.getElementById('score');
+            score.textContent = (parseInt(score.textContent) + 3) + '%';
+        }
+
+        // Check if already logged in
+        if (localStorage.getItem('apiKey')) {
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'block';
+        }
+
+        function subscribe(planType) {
+            var email = prompt('Enter your email for payment receipt:');
+            if (!email) return;
+            
+            // In a real app, you'd integrate with Yoco's payment form
+            // For demo, we'll simulate payment success
+            var token = 'demo_token_' + Math.random().toString(36).substr(2, 9);
+            
+            fetch('/subscribe', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + localStorage.getItem('apiKey')
+                },
+                body: JSON.stringify({
+                    plan_type: planType,
+                    token: token,
+                    email: email
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    alert('🎉 Payment successful! You are now subscribed to ' + planType + ' plan.');
+                } else {
+                    alert('❌ Payment failed: ' + data.detail);
+                }
+            })
+            .catch(error => {
+                alert('❌ Error processing payment');
+            });
+        }
+
+        function checkSubscription() {
+            fetch('/subscription-status', {
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem('apiKey')
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'active') {
+                    console.log('Active subscription:', data.plan);
+                }
+            });
+        }
+
+        setTimeout(checkSubscription, 1000);
+    </script>
+</body>
+</html>

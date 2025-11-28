@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: aicsa-pro
+    env: python
+    plan: free
+    branch: main
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn simple_main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: BASE_URL
+        value: https://aicsa.org.za
+      - key: PYTHON_VERSION
+        value: 3.11.0
